@@ -17,7 +17,7 @@ class Contact extends Component {
       message: ''
     };
 
-    this.handlInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -140,7 +140,7 @@ class Contact extends Component {
                     </Label>
                   </FormGroup>
                 </Col>
-                <Col md={{ size: 5, offset: 3 }}>
+                <Col md={{ size: 3, offset: 1 }}>
                   <Input type="select" name="contactType" value={this.state.contactType} onChange={this.handleInputChange}>
                     <option>Tel. </option>
                     <option>Email</option>
@@ -150,7 +150,7 @@ class Contact extends Component {
               <FormGroup row>
                 <Label htmlFor="message" md={2}>Your Feedback</Label>
                 <Col md={10}>
-                  <Input type="textarea" id="message" name="message" rows="12" value={this.state.value} onChange={this.handleInputChange}></Input>
+                  <Input type="textarea" id="message" name="message" rows="12" value={this.state.message} onChange={this.handleInputChange}></Input>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -161,11 +161,6 @@ class Contact extends Component {
             </Form>
           </div>
         </div>
-
-
-
-
-
       </div>
     );
   }
