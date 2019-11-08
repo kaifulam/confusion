@@ -22,12 +22,11 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.togglenav = this.toggleNav.bind(this);
     this.state = {
       isNavOpen: false,
       isModalOpen: false
     };
-
+    this.togglenav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }

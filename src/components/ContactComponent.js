@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, FormFeedback } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, Row, Label, Col } from "reactstrap";
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from "react-router-dom";
 import { thisExpression } from "@babel/types";
 import { onErrorResumeNext } from "rxjs";
@@ -39,10 +40,10 @@ class Contact extends Component {
     });
   }
 
-  handleSubmit(event) {
-    console.log('Current State is: ' + JSON.stringify(this.state));
-    alert("Current State is: " + JSON.stringify(this.state));
-    event.preventDefault();
+  handleSubmit(values) {
+    console.log('Current State is: ' + JSON.stringify(values));
+    alert("Current State is: " + JSON.stringify(values));
+    //event.preventDefault();
   }
 
   validate(firstname, lastname, telnum, email) {
@@ -150,63 +151,59 @@ class Contact extends Component {
             <h3> Send us your feedback </h3>
           </div>
           <div className='col-12 col-md-9'>
-            <Form onSubmit={this.handleSubmit}>
-              <FormGroup row>
+            <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+              <Row className="form-group">
                 <Label htmlFor="firstname" md={2}>First Name</Label>
                 <Col md={10}>
-                  <Input type="text" id="firstname" name="firstname" placeholder="First Name" value={this.state.firstname} valid={errors.firstname === ''} invalid={errors.firstname !== ''} onBlur={this.handleBlur('firstname')} onChange={this.handleInputChange} />
-                  <FormFeedback>{errors.firstname}</FormFeedback>
+                  <Control.text model='.firstname' id="firstname" name="firstname" placeholder="First Name" classsName='form-control' />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row className='form-group'>
                 <Label htmlFor="lastname" md={2}>Last Name</Label>
                 <Col md={10}>
-                  <Input type="text" id="lastname" name="lastname" placeholder="Last Name" value={this.state.lastname} value={this.state.lastname} valid={errors.firstname === ''} invalid={errors.lastname !== ''} onBlur={this.handleBlur('lastname')} onChange={this.handleInputChange} />
-                  <FormFeedback>{errors.lastname}</FormFeedback>
+                  <Control.text model='.lastname' id="lastname" name="lastname" placeholder="Last Name" className='form-control' />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row className='form-group'>
                 <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                 <Col md={10}>
-                  <Input type="number" id="telnum" name="telnum" placeholder="Tel. Number" value={this.state.telnum} value={this.state.telnum} valid={errors.telnum === ''} invalid={errors.telnum !== ''} onBlur={this.handleBlur('telnum')} onChange={this.handleInputChange} />
-                  <FormFeedback>{errors.telnum}</FormFeedback>
+                  <Control.text model='.telnum' id="telnum" name="telnum" placeholder="Tel. Number" className='form-control' />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row className='form-group'>
                 <Label htmlFor="email" md={2}> Email </Label>
                 <Col md={10}>
-                  <Input type="email" id="email" name="email" placeholder="email" value={this.state.email} value={this.state.email} valid={errors.email === ''} invalid={errors.email !== ''} onBlur={this.handleBlur('email')} onChange={this.handleInputChange} />
-                  <FormFeedback>{errors.email}</FormFeedback>
+                  <Control.text model='.email' id="email" name="email" placeholder="email" className='form-control' />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row className='form-group'>
                 <Col md={{ size: 6, offset: 2 }}>
-                  <FormGroup check>
+                  <div className='form-check'>
                     <Label check>
-                      <Input type="checkbox" name="agree" checked={this.state.agree} onChange={this.handleInputChange} /> {' '}
+                      <Control.checkbox model='.agree' name="agree" className='form-check-input' /> {' '}
                       <strong>May we contact you?</strong>
                     </Label>
-                  </FormGroup>
+                  </div>
                 </Col>
                 <Col md={{ size: 3, offset: 1 }}>
-                  <Input type="select" name="contactType" value={this.state.contactType} onChange={this.handleInputChange}>
+                  <Control.select model=".select" name="contactType" className='form-control'>
                     <option>Tel. </option>
                     <option>Email</option>
-                  </Input>
+                  </Control.select>
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row className='form-group'>
                 <Label htmlFor="message" md={2}>Your Feedback</Label>
                 <Col md={10}>
-                  <Input type="textarea" id="message" name="message" rows="12" value={this.state.message} onChange={this.handleInputChange}></Input>
+                  <Control.textarea model='.message' id="message" name="message" rows="12" className='form-control' />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row className='form-group'>
                 <Col md={{ size: 10, offset: 2 }}>
                   <Button type="submit" color="primary"> Send Feedback</Button>
                 </Col>
-              </FormGroup>
-            </Form>
+              </Row>
+            </LocalForm>
           </div>
         </div>
       </div>

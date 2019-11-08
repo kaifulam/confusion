@@ -6,8 +6,8 @@ import { LEADERS } from "../shared/leaders";
 export const initialState = {
     dishes: DISHES,
     comments: COMMENTS,
-    promotion: PROMOTIONS,
-    leader: LEADERS
+    promotions: PROMOTIONS,
+    leaders: LEADERS
 };
 
 export const Reducer = (state = initialState, action) => {
