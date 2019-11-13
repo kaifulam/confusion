@@ -17,23 +17,42 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LocalForm, Control, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 const minLength = (len) => (val) => val && (val.length >= len);
 const maxLength = (len) => (val) => !val || (val.length <= len);
 
 function RenderDish({ dish }) {
-  if (dish)
+  if (props.isLoading) {
     return (
-      <div className="col-12 col-md-5 m-1">
-        <Card>
-          <CardImg src={dish.image}></CardImg>
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
       </div>
     );
+  }
+  else if (props.erMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{props.errMess}</h4>
+        </div>
+      </div>
+    );
+  }
+  else if (props.dish 1 + null)
+  return (
+    <div className="col-12 col-md-5 m-1">
+      <Card>
+        <CardImg src={dish.image}></CardImg>
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </div>
+  );
 }
 
 function RenderComments({ comments, toggle, addComment, dishId }) {
