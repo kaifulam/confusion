@@ -17,42 +17,24 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LocalForm, Control, Errors } from 'react-redux-form';
-import { Loading } from './LoadingComponent';
+import { Loading } from './LoadingComponents';
 
 const minLength = (len) => (val) => val && (val.length >= len);
 const maxLength = (len) => (val) => !val || (val.length <= len);
 
 function RenderDish({ dish }) {
-  if (props.isLoading) {
+  if (dish != null)
     return (
-      <div className="container">
-        <div className="row">
-          <Loading />
-        </div>
+      <div className="col-12 col-md-5 m-1">
+        <Card>
+          <CardImg src={dish.image}></CardImg>
+          <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
       </div>
     );
-  }
-  else if (props.erMess) {
-    return (
-      <div className="container">
-        <div className="row">
-          <h4>{props.errMess}</h4>
-        </div>
-      </div>
-    );
-  }
-  else if (props.dish 1 + null)
-  return (
-    <div className="col-12 col-md-5 m-1">
-      <Card>
-        <CardImg src={dish.image}></CardImg>
-        <CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
-    </div>
-  );
 }
 
 function RenderComments({ comments, toggle, addComment, dishId }) {
@@ -100,6 +82,7 @@ class DishDetail extends Component {
     }
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.hadnleSubmit = this.handleSubmit.bind(this);
   }
 
   toggleModal() {
@@ -109,14 +92,32 @@ class DishDetail extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(this.props.dishId);
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     console.log('Current State is: ' + JSON.stringify(values));
     alert("Current State is: " + JSON.stringify(values));
     //event.preventDefault();
   }
 
   render() {
-    if (this.props.dish)
+    if (this.props.isLoading) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Loading />
+          </div>
+        </div>
+      );
+    }
+    else if (this.props.erMess) {
+      return (
+        <div className="container">
+          <div className="row">
+            <h4>{this.props.errMess}</h4>
+          </div>
+        </div>
+      );
+    }
+    else if (this.props.dish != null)
       return (
         <div className="container">
           <div>
@@ -135,7 +136,10 @@ class DishDetail extends Component {
           <div className="row">
             {" "}
             <RenderDish dish={this.props.dish} />
-            <RenderComments comments={this.props.comments} toggle={this.toggleModal} />
+            <RenderComments comments={this.props.comments}
+              addComment={this.props.addComment}
+              dishId={this.props.dishId}
+              toggle={this.toggleModal} />
           </div>
 
           <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
