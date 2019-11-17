@@ -38,7 +38,7 @@ function RenderDish({ dish }) {
     );
 }
 
-function RenderComments({ comments, toggle, addComment, dishId }) {
+function RenderComments({ comments, toggle, postComment, dishId }) {
   if (comments) {
     const comm = comments.map(comment => {
       return (
@@ -59,7 +59,7 @@ function RenderComments({ comments, toggle, addComment, dishId }) {
       <div className="col-12 col-md-5 m-1">
         <h4> Comments </h4>
         <ul> {comm} </ul>
-        <CommentForm toggle={toggle} dishId={dishId} addComment={addComment} />
+        <CommentForm toggle={toggle} dishId={dishId} postComment={postComment} />
       </div>
     );
   }
@@ -79,7 +79,8 @@ class DishDetail extends Component {
     super(props);
 
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      isNavOpen: false
     }
 
     this.toggleModal = this.toggleModal.bind(this);
@@ -93,7 +94,7 @@ class DishDetail extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     console.log('Current State is: ' + JSON.stringify(values));
     alert("Current State is: " + JSON.stringify(values));
     //event.preventDefault();
@@ -138,7 +139,7 @@ class DishDetail extends Component {
             {" "}
             <RenderDish dish={this.props.dish} />
             <RenderComments comments={this.props.comments}
-              addComment={this.props.addComment}
+              postComment={this.props.postComment}
               dishId={this.props.dishId}
               toggle={this.toggleModal} />
           </div>
