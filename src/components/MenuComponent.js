@@ -25,6 +25,8 @@ function RenderMenuItem({ dish, onClick }) {
 }
 
 const Menu = props => {
+  //alert("Menu: " + JSON.stringify(props.dishes.dishes));
+
   const menu = props.dishes.dishes.map(dish => {
     if (props.dishes.isLoading) {
       return (

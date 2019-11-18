@@ -106,9 +106,9 @@ class DishDetail extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
-    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
-    console.log('Current State is: ' + JSON.stringify(values));
-    alert("Current State is: " + JSON.stringify(values));
+    this.props.postComment(this.props.dish.id, values.rating, values.author, values.comComment);
+    console.log('Current State is: ' + JSON.stringify(values) + this.props.dish.id);
+    alert("Current State is: " + JSON.stringify(values) + this.props.dish.id);
     //event.preventDefault();
   }
 
@@ -152,7 +152,7 @@ class DishDetail extends Component {
             <RenderDish dish={this.props.dish} />
             <RenderComments comments={this.props.comments}
               postComment={this.props.postComment}
-              dishId={this.props.dishId}
+              dishId={this.props.dish.id}
               toggle={this.toggleModal} />
           </div>
 
@@ -161,7 +161,7 @@ class DishDetail extends Component {
             <ModalBody>
               <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                 <Row className='form-group'>
-                  <Label md={2}>Rating</Label>
+                  <Label htmlFor='rating' md={2}>Rating</Label>
                   <Col md={10}>
                     <Control.select model='.rating' name='rating' className='form-control'>
                       <option>1</option>
